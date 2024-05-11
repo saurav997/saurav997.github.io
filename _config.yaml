@@ -1,0 +1,51 @@
+# Jekyll configuration file
+
+title: "[Your Name] - Full Stack Web Developer"  # Replace with your name
+description: Building innovative and user-friendly web experiences.
+# You can add custom favicon details here (16x16 pixels)
+# favicon: path/to/your/favicon.ico
+
+# Jekyll Gems (add any additional gems you might use)
+gems:
+  [
+    jekyll-theme-cayman  # Replace with your desired theme
+  ]
+
+# Theme Configuration (adjust based on the chosen theme)
+theme: jekyll-theme-cayman  # Replace with your desired theme
+# You can customize the theme options here based on its documentation
+
+# Collections (optional, for managing blog posts or similar content)
+# collections:
+
+# Pagination (optional, for paginating content)
+# permalink: /:categories/:year/:month/:day/:title.html
+# paginate: 5
+
+# Other Jekyll configuration options (refer to Jekyll documentation for details)
+markdown: kramdown
+kramdown:
+  syntax_highlighter: rouge
+  # ... other kramdown options
+
+# You can add custom variables here to use within your Jekyll templates
+
+exclude: ["Gemfile", "Gemfile.lock", "node_modules", "vendor", "_config.yml"]
+</blockquote>
+
+**Explanation:**
+
+1. **Theme:** This configuration specifies the theme as `jekyll-theme-cayman`. You can choose a different theme based on your preference. Popular options include Minimal Mistakes, Minimal Mistakes Jekyll, and Jekyll Theme Athens. Each theme offers its own customization options, so explore them to achieve the desired look.
+2. **Theme Configuration:** Replace `"jekyll-theme-cayman"` with your chosen theme and uncomment the theme configuration section. Refer to the theme's documentation for specific customization options like fonts, colors, and layouts.
+3. **Markdown:** This sets the Markdown processor to `kramdown` and enables syntax highlighting for code blocks using the `rouge` highlighter.
+4. **Custom Variables (Optional):** You can define custom variables here to use within your Jekyll templates for more dynamic content.
+
+**Additional Tips:**
+
+* **Theme Selection:** Choose a theme that aligns with your desired style (professional, modern, minimalist, etc.). Many themes offer customization options to further personalize the look.
+* **Color Scheme:** Select a color scheme that's professional and pleasing to the eye. Consider interviewers' preferences for readability and user experience. Avoid overly bright or saturated colors.
+* **Readability:** Ensure good contrast between text and background colors for optimal readability across different devices.
+* **Image Quality:** Use high-quality images for your profile picture and project screenshots to enhance the website's overall impression.
+* **Content & Clarity:** Keep your website content concise and well-structured. Highlight your skills and achievements in a clear and impactful manner.
+
+By combining a professional theme, thoughtful styling, and valuable content,  you can create a website that effectively showcases your skills and impresses potential interviewers.
