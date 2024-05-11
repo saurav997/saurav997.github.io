@@ -1,23 +1,30 @@
 # Jekyll configuration file
 
-title: "Saurav R - Software Engineer, Simulation expert and Machine learning enthusiast"  # Replace with your name
-description: Curiosity keeps me awake at night.
-# You can add custom favicon details here (16x16 pixels)
-# favicon: path/to/your/favicon.ico
+title: "[Your Name] - Full Stack Web Developer" # Replace with your name
+description: Building innovative and user-friendly web experiences.
 
-# Jekyll Gems (add any additional gems you might use)
+# Favicon (Optional, 16x16 pixels)
+favicon: path/to/your/favicon.ico  # Replace with the path to your favicon
+
+# Jekyll Gems (Add any additional gems you might use)
 gems:
-    - jekyll-theme-cayman  # Replace with your desired theme
+  [
+    jekyll-theme-cayman  # Replace with your desired theme (consider options below)
+  ]
 
-
-# Theme Configuration (adjust based on the chosen theme)
+# Theme Configuration (Adjust based on the chosen theme)
 theme: jekyll-theme-cayman  # Replace with your desired theme
-# You can customize the theme options here based on its documentation
 
-# Collections (optional, for managing blog posts or similar content)
+# Theme Options (Customize based on theme documentation)
+# Refer to the chosen theme's documentation for specific options
+# Here are some examples for Jekyll Theme Cayman:
+#   primary_color: "#your_desired_color"  # Adjust the main color
+#   font_family: "sans-serif"  # Change the font if preferred
+
+# Collections (Optional, for managing blog posts or similar content)
 # collections:
 
-# Pagination (optional, for paginating content)
+# Pagination (Optional, for paginating content)
 # permalink: /:categories/:year/:month/:day/:title.html
 # paginate: 5
 
@@ -27,7 +34,18 @@ kramdown:
   syntax_highlighter: rouge
   # ... other kramdown options
 
-# You can add custom variables here to use within your Jekyll templates
+# Custom Variables (Optional)
+# Define custom variables to use within your Jekyll templates
 
 exclude: ["Gemfile", "Gemfile.lock", "node_modules", "vendor", "_config.yml"]
-</blockquote>
+
+
+# Popular Theme Options for Professional Look (Consider these or similar themes):
+
+# - Jekyll Theme Cayman (already included): Clean, modern, customizable.
+# - Minimal Mistakes: Elegant, minimalist design with multiple layouts.
+# - Minimal Mistakes Jekyll: Similar to Minimal Mistakes, with additional options.
+# - Jekyll Theme Athens: Modern, portfolio-focused theme with clean aesthetics.
+
+# Remember to replace placeholders with your details and customize theme options 
+# based on the theme's documentation.
