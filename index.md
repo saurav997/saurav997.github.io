@@ -7,9 +7,9 @@ description: Building innovative and user-friendly web experiences.
 
 <div class="hero">
   <div class="container">
-    <img class="profile-image" src="path/to/your/profile_image.jpg" alt="[Your Name] - Profile Picture">
-    <h1>[Your Name]</h1>
-    <h2>Full Stack Web Developer</h2>
+    <img class="profile-image" src="Images\profile_pic.JPG" alt="Saurav Rao - Profile Picture">
+    <h1>Saurav R</h1>
+    <h2>Software Developer in Jaguar and Land Rover</h2>
     <p>[Short and compelling summary of your skills and experience. Briefly mention your areas of expertise (e.g., front-end development, back-end development, machine learning integration).]</p>
     <a href="#contact" class="button">Let's Connect</a>
   </div>
