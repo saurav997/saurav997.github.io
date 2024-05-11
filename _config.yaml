@@ -1,10 +1,9 @@
-# Jekyll configuration file
-
-title: "Saurav R - Software Engineer, 3D Simulation Expert and Machine Learning Engineer" # Replace with your name
-description: Learning keeps me up at night.
+title: "Saurav R - Software Engineer, 3D Simulation Expert & Machine Learning Engineer"  # Replace with your full name
+description: "learning keeps me up at night."
 
 # Favicon (Optional, 16x16 pixels)
-favicon: path/to/your/favicon.ico  # Replace with the path to your favicon
+# Replace with the path to your favicon (consider a simple icon)
+favicon: path/to/your/favicon.ico
 
 # Jekyll Gems (Add any additional gems you might use)
 gems:
@@ -17,9 +16,10 @@ theme: jekyll-theme-cayman  # Replace with your desired theme
 
 # Theme Options (Customize based on theme documentation)
 # Refer to the chosen theme's documentation for specific options
-# Here are some examples for Jekyll Theme Cayman:
-#   primary_color: "#your_desired_color"  # Adjust the main color
-#   font_family: "sans-serif"  # Change the font if preferred
+# Here are some examples for Jekyll Theme Cayman (adjust colors):
+primary_color: "#333333"  # Dark Gray (text and accents)
+secondary_color: "#f2f2f2"  # Light Gray (background)
+# You can adjust font family and other options based on theme documentation
 
 # Collections (Optional, for managing blog posts or similar content)
 # collections:
@@ -40,7 +40,7 @@ kramdown:
 exclude: ["Gemfile", "Gemfile.lock", "node_modules", "vendor", "_config.yml"]
 
 
-# Popular Theme Options for Professional Look (Consider these or similar themes):
+# Popular Theme Options for Minimalist Look (Consider these or similar themes):
 
 # - Jekyll Theme Cayman (already included): Clean, modern, customizable.
 # - Minimal Mistakes: Elegant, minimalist design with multiple layouts.
