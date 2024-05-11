@@ -17,8 +17,8 @@ theme: jekyll-theme-cayman  # Replace with your desired theme
 # Theme Options (Customize based on theme documentation)
 # Refer to the chosen theme's documentation for specific options
 # Here are some examples for Jekyll Theme Cayman (adjust colors):
-primary_color: "#333333"  # Dark Gray (text and accents)
-secondary_color: "#f2f2f2"  # Light Gray (background)
+primary_color: "#FFFFFF"  # Dark Gray (text and accents)
+secondary_color: "#800080"  # Light Gray (background)
 # You can adjust font family and other options based on theme documentation
 
 # Collections (Optional, for managing blog posts or similar content)
