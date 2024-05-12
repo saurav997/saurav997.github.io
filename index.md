@@ -62,8 +62,8 @@ description: Learning Never Ends.
     <h2>Get in Touch</h2>
     <p>I'm always interested in collaborating on new projects or connecting with fellow developers. Feel free to reach out!</p>
     <ul class="contact-info">
-      <li><a href="mailto:[your email]">[Your Email Address]</a></li>
-      <li><a href="[Your LinkedIn profile URL]">LinkedIn</a></li>
+      <li><a href="https://github.com/saurav997">github</a></li>
+      <li><a href="www.linkedin.com/in/saurav-rao-59b46b14a">LinkedIn</a></li>
       </ul>
   </div>
 </div>
