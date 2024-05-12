@@ -1,14 +1,39 @@
 title: "Saurav R - Software Engineer, 3D Simulation Expert & Machine Learning Engineer"  # Replace with your full name
 description: "learning keeps me up at night."
+
+# Favicon (Optional, 16x16 pixels)
+# Replace with the path to your favicon (consider a simple icon)
 favicon: path/to/your/favicon.ico
+
+# Jekyll Gems (Add any additional gems you might use)
 gems:
   [
-    jekyll-theme-cayman  # Replace with your desired theme (consider options below)
+    jekyll-theme-minimal-mistakes  # Replace with the chosen theme
   ]
-theme: jekyll-theme-cayman  # Replace with your desired theme
-primary_color: "#FFFFFF"  # Dark Gray (text and accents)
-secondary_color: "#800080"  # Light Gray (background)
+
+# Theme Configuration (Adjust based on the chosen theme)
+theme: jekyll-theme-minimal-mistakes
+
+# Theme Options (Customize based on theme documentation)
+# Refer to Minimal Mistakes documentation for specific options: https://github.com/mmistakes/minimal-mistakes
+primary_color: "#333333"  # Dark Gray (text and accents)
+secondary_color: "#f2f2f2"  # Light Gray (background)
+# You can adjust font family and other options based on theme documentation
+
+# Collections (Optional, for managing blog posts or similar content)
+# collections:
+
+# Pagination (Optional, for paginating content)
+# permalink: /:categories/:year/:month/:day/:title.html
+# paginate: 5
+
+# Other Jekyll configuration options (refer to Jekyll documentation for details)
 markdown: kramdown
 kramdown:
   syntax_highlighter: rouge
+  # ... other kramdown options
+
+# Custom Variables (Optional)
+# Define custom variables to use within your Jekyll templates
+
 exclude: ["Gemfile", "Gemfile.lock", "node_modules", "vendor", "_config.yml"]
