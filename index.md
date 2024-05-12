@@ -1,6 +1,6 @@
 ---
-title: [Saurav R] - Software Developer at Jaguar and Land Rover
-description: Learning Never Ends.
+title: "Saurav R - Software Developer at Jaguar and Land Rover"
+description: "Technical showcase."
 # You can set a custom favicon image here (16x16 pixels)
 # favicon: path/to/your/favicon.ico
 ---
