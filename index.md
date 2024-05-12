@@ -10,8 +10,8 @@ description: Learning Never Ends.
     <img class="profile-image" src="Images\profile_pic.JPG" alt="Saurav Rao - Profile Picture">
     <h1>Saurav R</h1>
     <h2>Software Developer in Jaguar and Land Rover</h2>
-    <p>[Short and compelling summary of your skills and experience. Briefly mention your areas of expertise (e.g., front-end development, back-end development, machine learning integration).]</p>
-    <a href="#contact" class="button">Let's Connect</a>
+    <p>This Webpage is dedicated to showcasing my technical skills and achievements in the field of machine learning, DevOps, Systems Engineering and Simulation Design</p>
+    <a href="#contact" class="button">To know more about me, let's Connect</a>
   </div>
 </div>
 
