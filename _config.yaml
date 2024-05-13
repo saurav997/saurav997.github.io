@@ -8,11 +8,11 @@ favicon: path/to/your/favicon.ico
 # Jekyll Gems (Add any additional gems you might use)
 gems:
   [
-    minimal-mistakes-jekyll  # Replace with the chosen theme
+    Jekyll Theme Athens  # Replace with the chosen theme
   ]
 
 # Theme Configuration (Adjust based on the chosen theme)
-theme: minimal-mistakes-jekyll
+theme: Jekyll Theme Athens
 
 # Theme Options (Customize based on theme documentation)
 # Refer to Minimal Mistakes documentation for specific options: https://github.com/mmistakes/minimal-mistakes
