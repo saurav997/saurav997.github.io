@@ -1,2 +1,0 @@
----
-BUNDLE_BUILD__WDM: "--with-cflags=-Wno-error=implicit-function-declaration"
