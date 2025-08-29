@@ -1,237 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Saurav Rao — AI Engineer & Researcher</title>
-  <meta name="description" content="Portfolio of Saurav Rao — AI Engineer & Researcher. Projects in LLMs, MCP, RL, MLOps, distributed learning, PyTorch, and computer vision." />
-  <meta property="og:title" content="Saurav Rao — AI Engineer & Researcher" />
-  <meta property="og:description" content="Selected work across LLMs, MCP, RL, MLOps, distributed learning, PyTorch, and CV." />
-  <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://avatars.githubusercontent.com/u/000000?v=4" />
-  <meta name="theme-color" content="#0b0f19" />
-  <link rel="icon" href="favicon.ico" />
-  <style>
-    :root {
-      --bg: #0b0f19;
-      --card: #121829;
-      --muted: #9aa4bf;
-      --text: #e6ecff;
-      --accent: #5e8bff;
-      --accent-2: #42d392;
-      --ring: #7aa2ff66;
-      --maxw: 1100px;
-      --radius: 18px;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-    }
-    @media (prefers-color-scheme: light) {
-      :root { --bg:#f6f8ff; --card:#ffffff; --text:#0b0f19; --muted:#52607f; --ring:#5e8bff33; }
-      body { background-image: radial-gradient(1200px 600px at 10% -10%, #e9efff, transparent), radial-gradient(800px 400px at 90% -10%, #f5fff5, transparent); }
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-      background: var(--bg);
-      color: var(--text);
-      line-height:1.6;
-    }
-    a{color:var(--accent); text-decoration:none}
-    a:hover{ text-decoration:underline }
-    .wrap{ max-width: var(--maxw); margin: 0 auto; padding: 28px 20px 80px }
-    header{ display:flex; align-items:center; justify-content:space-between; gap:16px; position: sticky; top:0; backdrop-filter: blur(8px); background: color-mix(in oklab, var(--bg) 88%, transparent); border-bottom: 1px solid color-mix(in oklab, var(--text) 12%, transparent); z-index:10 }
-    header .wrap{ padding: 14px 20px }
-    .brand{ display:flex; align-items:center; gap:12px }
-    .avatar{ width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-2)); box-shadow: var(--shadow) }
-    .title{ font-weight:700; letter-spacing:.2px }
-    nav a{ margin-left:18px; font-weight:600; color:var(--muted) }
-    nav a:hover{ color:var(--text) }
-    .hero{ padding: 64px 0 32px }
-    .badge{ display:inline-flex; align-items:center; gap:10px; padding:6px 12px; border-radius:999px; background: color-mix(in oklab, var(--card) 82%, transparent); border:1px solid color-mix(in oklab, var(--text) 12%, transparent) }
-    .badge .dot{ width:8px; height:8px; border-radius:99px; background: var(--accent-2); box-shadow:0 0 0 6px color-mix(in oklab,var(--accent-2) 20%, transparent) inset }
-    h1{ font-size: clamp(28px, 2.8vw + 14px, 52px); line-height:1.1; margin: 16px 0 10px }
-    .sub{ max-width: 800px; color: var(--muted); font-size: clamp(14px, 1vw + 10px, 18px) }
-    .cta{ display:flex; gap:12px; margin-top: 22px }
-    .btn{ display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:12px; font-weight:700; border:1px solid color-mix(in oklab, var(--text) 18%, transparent); background:linear-gradient(180deg, color-mix(in oklab, var(--card) 70%, transparent), color-mix(in oklab, var(--card) 95%, transparent)); color:var(--text) }
-    .btn:hover{ box-shadow: var(--shadow); transform: translateY(-1px) }
-    .btn.primary{ background: linear-gradient(180deg, color-mix(in oklab, var(--accent) 30%, var(--card)), color-mix(in oklab, var(--accent) 12%, var(--card))); border-color: color-mix(in oklab, var(--accent) 70%, transparent) }
-
-    section{ margin-top:48px }
-    .section-head{ display:flex; align-items:end; justify-content:space-between; gap:12px; margin-bottom:16px }
-    .section-head h2{ margin:0; font-size: clamp(18px, 1.5vw + 12px, 28px) }
-    .grid{ display:grid; grid-template-columns: repeat(12, 1fr); gap: 18px }
-    .card{ grid-column: span 12; background: var(--card); border:1px solid color-mix(in oklab, var(--text) 12%, transparent); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); position: relative; overflow: hidden }
-    @media (min-width: 720px){ .card{ grid-column: span 6 } }
-    @media (min-width: 1024px){ .card{ grid-column: span 4 } }
-    .card:hover{ transform: translateY(-3px); box-shadow: 0 18px 40px rgba(0,0,0,.35) }
-    .chip{ display:inline-flex; align-items:center; gap:8px; padding:6px 10px; border-radius:999px; background: color-mix(in oklab, var(--bg) 70%, transparent); color: var(--muted); border:1px solid color-mix(in oklab, var(--text) 10%, transparent); font-size:12px; margin-right:8px }
-    .card h3{ margin: 10px 0 6px; font-size: 18px }
-    .card p{ margin:0; color: var(--muted); min-height: 48px }
-    .meta{ margin-top: 12px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between }
-    .links a{ margin-right: 12px }
-    .thumb{ position:absolute; right:-10px; bottom:-10px; width:160px; height:160px; opacity:.08; filter: blur(1px) }
-
-    .list{ display:grid; gap:10px }
-    .list a{ padding:12px 14px; background: var(--card); border:1px solid color-mix(in oklab, var(--text) 12%, transparent); border-radius: 12px; font-weight:600 }
-
-    footer{ margin-top:64px; padding: 24px 0; color: var(--muted) }
-    .small{ font-size: 12px }
-    .kbd{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; background: color-mix(in oklab, var(--bg) 60%, transparent); border:1px solid color-mix(in oklab, var(--text) 12%, transparent); padding:3px 6px; border-radius:6px }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Saurav Rao — AI Engineer & Researcher</title>
+<meta name="description" content="Portfolio of Saurav Rao — AI Engineer & Researcher. LLMs, MCP, RL, MLOps, Distributed Learning, PyTorch, CV." />
+<meta name="theme-color" content="#0b0f19" />
+<link rel="icon" href="/favicon.ico" />
+<link rel="preload" href="/assets/css/styles.css" as="style" />
+<link rel="stylesheet" href="/assets/css/styles.css" />
 </head>
 <body>
-  <header>
-    <div class="wrap" style="display:flex; align-items:center; justify-content:space-between; width:100%">
-      <div class="brand">
-        <div class="avatar" aria-hidden="true"></div>
-        <div>
-          <div class="title">Saurav Rao</div>
-          <div class="small" style="color:var(--muted)">AI Engineer • LLMs • CV • RL</div>
-        </div>
-      </div>
-      <nav aria-label="Primary">
-        <a href="#projects">Projects</a>
-        <a href="#writing">Writing</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
+<div id="__header"></div>
+<main id="__main" class="wrap">
+<section id="__hero"></section>
+<section id="__projects" aria-labelledby="projects-h2"></section>
+<section id="__writing" aria-labelledby="writing-h2"></section>
+<section id="__skills" aria-labelledby="skills-h2"></section>
+<section id="__contact" aria-labelledby="contact-h2"></section>
+</main>
+<div id="__footer"></div>
 
-  <main class="wrap">
-    <section class="hero" aria-label="Hero">
-      <div class="badge"><span class="dot"></span><span>Open to senior AI roles & research collabs</span></div>
-      <h1>Building practical, high‑leverage AI systems</h1>
-      <p class="sub">I design and ship systems at the edge of <strong>LLMs, MCP, RL, MLOps, distributed learning, PyTorch</strong>, and <strong>computer vision</strong>. Below is a curated set of projects and writing intended for technical reviewers and recruiters.</p>
-      <div class="cta">
-        <a class="btn primary" href="https://github.com/" target="_blank" rel="noopener">GitHub</a>
-        <a class="btn" href="#projects">View projects</a>
-      </div>
-    </section>
 
-    <section id="projects" aria-labelledby="projects-h2">
-      <div class="section-head">
-        <h2 id="projects-h2">Selected Projects</h2>
-        <div class="small" style="color:var(--muted)">Sorted by relevance</div>
-      </div>
-      <div class="grid" id="project-grid"></div>
-    </section>
-
-    <section id="writing" aria-labelledby="writing-h2">
-      <div class="section-head">
-        <h2 id="writing-h2">Writing</h2>
-        <div class="small" style="color:var(--muted)">Deep dives & tutorials</div>
-      </div>
-      <div class="list" id="writing-list"></div>
-    </section>
-
-    <section id="skills" aria-labelledby="skills-h2">
-      <div class="section-head">
-        <h2 id="skills-h2">Skills Snapshot</h2>
-      </div>
-      <div class="grid">
-        <div class="card"><h3>LLMs & Agents</h3><p>RAG, MCP tooling, prompt engineering, evaluation, RLHF patterns, self‑edit pipelines.</p><div class="meta"><span class="chip">OpenAI / HF</span><span class="chip">MCP</span><span class="chip">LangChain‑lite</span></div></div>
-        <div class="card"><h3>PyTorch & RL</h3><p>Policy/value nets, PPO, advantage estimation, reward modeling, DDP/AMP, metrics.</p><div class="meta"><span class="chip">PyTorch</span><span class="chip">DDP</span><span class="chip">AMP</span></div></div>
-        <div class="card"><h3>MLOps/LLMOps</h3><p>Reproducible training, CI/CD, eval harnesses, dataset/versioning, tracing & logging.</p><div class="meta"><span class="chip">GitHub Actions</span><span class="chip">Weights & Biases*</span><span class="chip">OpenTelemetry*</span></div></div>
-        <div class="card"><h3>Computer Vision</h3><p>YOLO family, ViT trackers, OpenCV legacy trackers, TensorRT on Jetson.</p><div class="meta"><span class="chip">OpenCV</span><span class="chip">TensorRT</span><span class="chip">CUDA</span></div></div>
-      </div>
-    </section>
-
-    <section id="contact" aria-labelledby="contact-h2">
-      <div class="section-head">
-        <h2 id="contact-h2">Contact</h2>
-      </div>
-      <div class="card" style="display:flex; align-items:center; justify-content:space-between; gap:12px">
-        <div>
-          <p style="margin:0 0 8px">Available for senior AI roles, research collaborations, and consulting.</p>
-          <div class="small" style="color:var(--muted)">Email: <a href="mailto:sauravr1997@gmail.com">sauravr1997@gmail.com</a> • GitHub: <a href="https://github.com/" target="_blank" rel="noopener">github.com/</a></div>
-        </div>
-        <a class="btn primary" href="mailto:sauravr1997@gmail.com">Email me</a>
-      </div>
-    </section>
-
-    <footer>
-      <div class="wrap" style="padding:0">
-        <div class="small">© <span id="y"></span> Saurav Rao • Built for speed & clarity. <span class="kbd">gh-pages</span> ready.</div>
-      </div>
-    </footer>
-  </main>
-
-  <svg width="0" height="0" style="position:absolute"><defs>
-    <linearGradient id="grad" x1="0" x2="1" y1="0" y2="1">
-      <stop offset="0%" stop-color="var(--accent)" />
-      <stop offset="100%" stop-color="var(--accent-2)" />
-    </linearGradient>
-  </defs></svg>
-
-  <script>
-    // Year
-    document.getElementById('y').textContent = new Date().getFullYear();
-
-    // === Data (Edit this array to update your site) ===
-    const projects = [
-      {
-        title: 'Self‑Improving LLM Tutor (MCP + RL)',
-        blurb: 'Multi‑candidate self‑edit + reward modeling with PyTorch; MCP tools for external knowledge; eval harness + CI.',
-        tags: ['LLM','MCP','PyTorch','RL','CI'],
-        repo: 'https://github.com/',
-        demo: 'https://huggingface.co/spaces/',
-        thumb: ''
-      },
-      {
-        title: 'Jetson ViT Tracker + YOLO Refresh',
-        blurb: 'GPU‑accelerated object tracking with detection refresh; legacy OpenCV trackers benchmarked vs ViT tracker.',
-        tags: ['CV','CUDA','OpenCV','TensorRT'],
-        repo: 'https://github.com/',
-        demo: '',
-        thumb: ''
-      },
-      {
-        title: 'Eval Harness for LLM Apps',
-        blurb: 'Task suites for Gmail‑Compose, Translate, QA; BLEU/ROUGE/EM + semantic metrics, traceable reports.',
-        tags: ['LLMOps','Eval','Metrics'],
-        repo: 'https://github.com/',
-        demo: '',
-        thumb: ''
-      }
-    ];
-
-    const writing = [
-      { title: 'Designing MCP‑style Agents for Real Systems', url: 'https://github.com/', note: 'Architecture notes & pitfalls' },
-      { title: 'Reward Models that Don\'t Lie', url: 'https://github.com/', note: 'Lightweight RM training & eval' },
-      { title: 'From YOLO to ViT Trackers', url: 'https://github.com/', note: 'When to switch and why' }
-    ];
-
-    // Render Projects
-    const grid = document.getElementById('project-grid');
-    projects.forEach(p => {
-      const el = document.createElement('article');
-      el.className = 'card';
-      el.innerHTML = `
-        <div class="chips">${p.tags.map(t=>`<span class=\"chip\">${t}</span>`).join('')}</div>
-        <h3>${p.title}</h3>
-        <p>${p.blurb}</p>
-        <div class="meta">
-          <div class="links">
-            ${p.repo ? `<a href="${p.repo}" target="_blank" rel="noopener">Repo →</a>` : ''}
-            ${p.demo ? `<a href="${p.demo}" target="_blank" rel="noopener">Demo →</a>` : ''}
-          </div>
-          <svg class="thumb" viewBox="0 0 120 120" aria-hidden="true">
-            <defs><linearGradient id="g${p.title.replace(/\W/g,'')}" x1="0" x2="1"><stop offset="0%" stop-color="var(--accent)" /><stop offset="100%" stop-color="var(--accent-2)" /></linearGradient></defs>
-            <circle cx="60" cy="60" r="56" fill="url(#g${p.title.replace(/\W/g,'')})" />
-          </svg>
-        </div>`;
-      grid.appendChild(el);
-    });
-
-    // Render Writing
-    const w = document.getElementById('writing-list');
-    writing.forEach(x => {
-      const a = document.createElement('a');
-      a.href = x.url; a.target = '_blank'; a.rel = 'noopener';
-      a.textContent = `${x.title} — ${x.note}`;
-      w.appendChild(a);
-    });
-  </script>
+<script defer src="/assets/js/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,23 @@
+[
+{
+"title": "Self‑Improving LLM Tutor (MCP + RL)",
+"blurb": "Multi‑candidate self‑edit + reward modeling with PyTorch; MCP tools for external knowledge; eval harness + CI.",
+"tags": ["LLM", "MCP", "PyTorch", "RL", "CI"],
+"repo": "https://github.com/",
+"demo": "https://huggingface.co/spaces/"
+},
+{
+"title": "Jetson ViT Tracker + YOLO Refresh",
+"blurb": "GPU‑accelerated object tracking with detection refresh; legacy OpenCV trackers benchmarked vs ViT tracker.",
+"tags": ["CV", "CUDA", "OpenCV", "TensorRT"],
+"repo": "https://github.com/",
+"demo": ""
+},
+{
+"title": "Eval Harness for LLM Apps",
+"blurb": "Task suites for Gmail‑Compose, Translate, QA; BLEU/ROUGE/EM + semantic metrics; traceable reports.",
+"tags": ["LLMOps", "Eval", "Metrics"],
+"repo": "https://github.com/",
+"demo": ""
+}
+]

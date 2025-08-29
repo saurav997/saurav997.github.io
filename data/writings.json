@@ -1,0 +1,5 @@
+[
+{ "title": "Designing MCP‑style Agents for Real Systems", "url": "https://github.com/", "note": "Architecture notes & pitfalls" },
+{ "title": "Reward Models that Don't Lie", "url": "https://github.com/", "note": "Lightweight RM training & eval" },
+{ "title": "From YOLO to ViT Trackers", "url": "https://github.com/", "note": "When to switch and why" }
+]
