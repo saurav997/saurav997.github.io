@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Why LLMs Hallucinate: A Simple Math Story — Saurav Rao</title>
+  <meta name="description" content="An article by Saurav Rao explaining why large language models hallucinate, using mathematical notation and a simple example." />
+  <meta name="keywords" content="LLM, hallucination, AI, mathematics, machine learning" />
+  <meta name="theme-color" content="#0b0f19" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="preload" href="/assets/css/styles.css" as="style" />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+  <!-- MathJax for LaTeX rendering -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    /* Article-specific styles to enhance readability and Medium iframe compatibility */
+    body {
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+    main.wrap {
+      padding: 28px 20px; /* Match styles.css */
+    }
+    .article-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: clamp(24px, 2vw + 16px, 36px); /* Slightly smaller than styles.css h1 */
+      margin: 20px 0 12px;
+    }
+    h2 {
+      font-size: clamp(20px, 1.8vw + 12px, 28px);
+      margin: 24px 0 12px;
+    }
+    h3 {
+      font-size: clamp(18px, 1.5vw + 10px, 24px);
+      margin: 18px 0 10px;
+    }
+    p, ul, ol {
+      font-size: clamp(14px, 1vw + 10px, 16px);
+      margin-bottom: 16px;
+    }
+    ul { list-style-type: disc; padding-left: 20px; }
+    ul.mathjax-container { list-style-type: none; padding-left: 0; }
+    ul.mathjax-container li { margin: 15px 0; }
+    .mathjax-container p { margin: 0; }
+    .boxed-equation {
+      text-align: center;
+      background: var(--card);
+      padding: 12px;
+      border: 1px solid #ffffff1f;
+      border-radius: var(--radius);
+      margin: 16px 0;
+    }
+    /* Responsive design for Medium iframe */
+    @media (max-width: 720px) {
+      main.wrap { padding: 20px 15px; }
+      h1 { font-size: clamp(20px, 2vw + 12px, 28px); }
+      h2 { font-size: clamp(18px, 1.8vw + 10px, 24px); }
+      .article-content { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div id="__header"></div>
+  <main id="__main" class="wrap">
+    <section id="__article" class="article-content">
+      <h1>Why LLMs “Hallucinate”: A Simple Math Story (up to Theorem 1)</h1>
+      <p><strong>Goal:</strong> show—using one concrete example and a few clean formulas—why sampling from a language model (LM) inevitably produces some wrong answers, and how that links to a simple yes/no “validity” judgment task.</p>
+
+      <h2>1) A Tiny Live Example + the Only Notation You Need</h2>
+      <p><strong>Prompt \( c \):</strong> “What is the capital of France?”</p>
+      <p><strong>Plausible responses \( R_c \):</strong> {“Paris”, “Lyon”, “Marseille”, “Berlin”}</p>
+      <p>Split into two buckets:</p>
+      <ul>
+        <li><strong>Valid set \( V_c \)</strong> = {“Paris”}</li>
+        <li><strong>Error set \( E_c \)</strong> = {“Lyon”, “Marseille”, “Berlin”}</li>
+      </ul>
+      <p>Two distributions matter:</p>
+      <ul>
+        <li><strong>Truth/data distribution \( p(r \mid c) \):</strong> what we <em>want</em>. Here</li>
+        <p class="mathjax-container">
+          \( p(\text{"Paris"} \mid c) = 1, \qquad p(r \in E_c \mid c) = 0. \)
+        </p>
+        <li><strong>Model distribution \( \hat{p}(r \mid c) \):</strong> what the LM actually uses to <em>sample</em>. Example:</li>
+        <p class="mathjax-container">
+          \( \hat{p}(\text{"Paris"} \mid c) = 0.7, \quad \hat{p}(\text{"Lyon"} \mid c) = \hat{p}(\text{"Marseille"} \mid c) = \hat{p}(\text{"Berlin"} \mid c) = 0.1. \)
+        </p>
+      </ul>
+      <p><strong>Hallucination rate for this prompt</strong> = model’s total mass on errors:</p>
+      <p class="mathjax-container boxed-equation">
+        \( \text{err}_c = \sum_{r \in E_c} \hat{p}(r \mid c). \)
+      </p>
+      <p>With the numbers above, \( \text{err}_c = 0.1 + 0.1 + 0.1 = 0.3 \). Even “knowing” Paris is most likely, the model still says a wrong city <strong>30%</strong> of the time—because it <strong>samples</strong>.</p>
+      <p>One more set we’ll need:</p>
+      <ul>
+        <li><strong>Above-threshold set \( A_c \):</strong> responses whose model probability clears a simple cutoff:</li>
+        <p class="mathjax-container">
+          \( A_c := \{ r \in R_c : \hat{p}(r \mid c) > 1/|E_c| \}. \)
+        </p>
+      </ul>
+      <p>Here \( |E_c| = 3 \Rightarrow 1/|E_c| \approx 0.33 \). Only “Paris” has \( 0.7 > 0.33 \), so \( A_c = \{\text{"Paris"}\} \).</p>
+      <p>Notes:</p>
+      <ol>
+        <li>\( A_c \) is <strong>not</strong> “the correct answers.” It’s just “responses the model is <strong>confident</strong> about.”</li>
+        <li>\( A_c \) can contain valids and/or errors: both \( A_c \cap V_c \) and \( A_c \cap A_c \) are possible.</li>
+      </ol>
+      <p><strong>Notation checklist</strong> (we’ll reuse these):</p>
+      <ul class="mathjax-container">
+        <li>\( c \): prompt; \( R_c \): plausible responses</li>
+        <li>\( V_c, E_c \): valid vs error (disjoint)</li>
+        <li>\( p(\cdot \mid c), \hat{p}(\cdot \mid c) \): truth vs model distributions</li>
+        <li>\( \text{err}_c = \sum_{r \in E_c} \hat{p}(r \mid c) \)</li>
+        <li>\( A_c = \{ r : \hat{p}(r \mid c) > 1/|E_c| \} \)</li>
+      </ul>
+
+      <h2>2) Turn Probabilities into a Yes/No Judge (IIV)</h2>
+      <p>We now build a simple <strong>Is-It-Valid (IIV)</strong> judge out of the LM and measure how often it fails.</p>
+
+      <h3>2.1 A Balanced Mini-Exam for the Judge (Fixed Prompt)</h3>
+      <p>For the fixed prompt \( c \), test the judge on a <strong>balanced</strong> mixture:</p>
+      <ul>
+        <li>With probability \( 1/2 \): show a <strong>valid</strong> response (drawn from the truth side);</li>
+        <li>With probability \( 1/2 \): show an <strong>error</strong> response, chosen <strong>uniformly</strong> from \( E_c \).</li>
+      </ul>
+      <p>Think: a deck with half “valid” cards and half “error” cards, where error cards are evenly represented.</p>
+
+      <h3>2.2 Define the Judge by Thresholding</h3>
+      <p>Use a single cutoff</p>
+      <p class="mathjax-container">
+        \( T_c = \frac{1}{|E_c|}, \qquad A_c = \{ r : \hat{p}(r \mid c) > T_c \}. \)
+      </p>
+      <p>Judge decision:</p>
+      <p class="mathjax-container">
+        \( \hat{f}_c(r) =
+        \begin{cases}
+        \text{“Valid”} & \text{if } r \in A_c, \\[2pt]
+        \text{“Error”} & \text{otherwise.}
+        \end{cases} \)
+      </p>
+
+      <h3>2.3 The Judge’s Error Splits Cleanly</h3>
+      <p>Under the balanced exam, the error rate is</p>
+      <p class="mathjax-container boxed-equation">
+        \( \boxed{ \text{err}_{\text{iiv}}(c) = \frac{1}{2} p(V_c \setminus A_c \mid c) + \frac{1}{2} \frac{|E_c \cap A_c|}{|E_c|} } \)
+      </p>
+      <p>Read it as:</p>
+      <ul>
+        <li><strong>Below-valid:</strong> valid answers that fell <strong>below</strong> the threshold.</li>
+        <li><strong>Above-error:</strong> errors that rose <strong>above</strong> the threshold (counted as a uniform fraction).</li>
+      </ul>
+      <p><strong>Memory hook:</strong> <em>“Below-valid + Above-error (50/50).”</em></p>
+
+      <h3>2.4 Plug in the Toy Numbers</h3>
+      <ul>
+        <li>\( R_c = \{\text{Paris}, \text{Lyon}, \text{Marseille}, \text{Berlin}\} \)</li>
+        <li>\( V_c = \{\text{Paris}\}, E_c = \{\text{Lyon}, \text{Marseille}, \text{Berlin}\} \)</li>
+        <li>\( \hat{p}(\text{Paris} \mid c) = 0.7 \); each error \( = 0.1 \)</li>
+        <li>\( T_c = 1/3 \approx 0.33 \) → \( A_c = \{\text{Paris}\} \)</li>
+      </ul>
+      <p>Compute:</p>
+      <ul>
+        <li>\( p(V_c \setminus A_c \mid c) = 0 \) (Paris is above threshold)</li>
+        <li>\( |E_c \cap A_c| / |E_c| = 0 \) (no error above threshold)</li>
+      </ul>
+      <p>So</p>
+      <p class="mathjax-container boxed-equation">
+        \( \boxed{\text{err}_{\text{iiv}}(c) = 0} \)
+      </p>
+      <p>Yet the <strong>generator</strong> still has \( \text{err}_c = 0.3 \). A perfect judge does <strong>not</strong> make a clean generator, because the generator <strong>samples</strong>. We link them next.</p>
+
+      <h2>3) From Judge to Generator: The Core No-Prompt Bound</h2>
+      <h3>3.1 Goal</h3>
+      <p>Relate generator hallucination to judge error:</p>
+      <p class="mathjax-container boxed-equation">
+        \( \boxed{ \text{err} \ge 2 \text{err}_{\text{iiv}} - \frac{|V|}{|E|} - \delta } \)
+      </p>
+      <p>Here \( |V|, |E| \) are counts in a <strong>global</strong> plausible set \( X = V \cup E \) (no prompts), and \( \delta \) is a small <strong>calibration gap</strong> (defined below).</p>
+
+      <h3>3.2 Setup (No Prompts)</h3>
+      <ul>
+        <li>Truth \( p \) (all mass on \( V \)); model \( \hat{p} \); hallucination \( \text{err} = \hat{p}(E) \).</li>
+        <li>Threshold set \( A = \{ x : \hat{p}(x) > 1/|E| \} \).</li>
+        <li>IIV error on the balanced test:</li>
+        <p class="mathjax-container boxed-equation">
+          \( \boxed{ \text{err}_{\text{iiv}} = \frac{1}{2} p(V \setminus A) + \frac{1}{2} \frac{|E \cap A|}{|E|} } \)
+        </p>
+        <li>Calibration gap:</li>
+        <p class="mathjax-container">
+          \( \delta = |\hat{p}(A) - p(A)| \quad \text{(model vs data mass on the threshold set)}. \)
+        </p>
+      </ul>
+
+      <h3>3.3 Two Moves</h3>
+      <p><strong>(1) Generator ≥ confident-errors mass</strong></p>
+      <p class="mathjax-container">
+        \( \hat{p}(E) \ge \hat{p}(E \cap A) \ge \frac{|E \cap A|}{|E|} - \delta. \quad (1) \)
+      </p>
+      <p><strong>(2) Swap \( |E \cap A| / |E| \) using the IIV split</strong></p>
+      <p class="mathjax-container">
+        \( 2 \text{err}_{\text{iiv}} = p(V \setminus A) + \frac{|E \cap A|}{|E|} \ \Rightarrow \ \frac{|E \cap A|}{|E|} = 2 \text{err}_{\text{iiv}} - p(V \setminus A). \quad (2) \)
+      </p>
+
+      <h3>3.4 Bound the “Valid-Below” Piece</h3>
+      <p>Below the threshold, each \( v \in V \setminus A \) has \( \hat{p}(v) \le 1/|E| \). Summing and switching to data mass:</p>
+      <p class="mathjax-container">
+        \( p(V \setminus A) \le \hat{p}(V \setminus A) + \delta \le \frac{|V|}{|E|} + \delta. \quad (3) \)
+      </p>
+
+      <h3>3.5 Combine (1)+(2)+(3)</h3>
+      <p class="mathjax-container">
+        \( \hat{p}(E) \ge 2 \text{err}_{\text{iiv}} - \frac{|V|}{|E|} - 2\delta \ \leadsto \ \boxed{ \text{err} \ge 2 \text{err}_{\text{iiv}} - \frac{|V|}{|E|} - \delta }. \)
+      </p>
+      <p><strong>When it’s informative.</strong> If \( |V| \ll |E| \) and \( \delta \) is small, this gives a meaningful lower bound on hallucination. If \( |E| \) is tiny (few plausible wrongs), the size term can dominate and the bound may be vacuous—good news: that’s a task where hallucinations are easier to avoid.</p>
+
+      <h2>4) Extending to Many Prompts (Theorem 1)</h2>
+      <p>Real LMs face a <em>distribution</em> of prompts \( c \sim \mu \). Each prompt has its own \( V_c \) and \( E_c \). We lift the previous argument with two tweaks: a <strong>single global threshold</strong> and a <strong>min/max size term</strong>.</p>
+
+      <h3>4.1 Notation for Prompts</h3>
+      <ul>
+        <li>Prompts \( c \sim \mu \); plausible set \( R_c = V_c \cup E_c \).</li>
+        <li>Truth \( p(r \mid c) \) (all mass on \( V_c \)); model \( \hat{p}(r \mid c) \).</li>
+        <li>Overall hallucination rate:</li>
+        <p class="mathjax-container">
+          \( \text{err} = \mathbb{E}_{c \sim \mu} \sum_{r \in E_c} \hat{p}(r \mid c). \)
+        </p>
+      </ul>
+
+      <h3>4.2 One Global Threshold</h3>
+      <p class="mathjax-container">
+        \( T = \frac{1}{\min_c |E_c|}, \qquad A_c = \{ r : \hat{p}(r \mid c) > T \}. \)
+      </p>
+      <p>One classifier, one cutoff, works for <strong>all</strong> prompts.</p>
+
+      <h3>4.3 Balanced IIV over Prompts</h3>
+      <ul>
+        <li>With prob \( 1/2 \): pick \( c \sim \mu \), then a valid \( r \sim p(\cdot \mid c) \) restricted to \( V_c \).</li>
+        <li>With prob \( 1/2 \): pick \( c \sim \mu \), then \( r \) <strong>uniform</strong> in \( E_c \).</li>
+      </ul>
+      <p>Judge’s error:</p>
+      <p class="mathjax-container boxed-equation">
+        \( \boxed{ \text{err}_{\text{iiv}} = \frac{1}{2} \mathbb{E}_{c} [ p(V_c \setminus A_c \mid c) ] + \frac{1}{2} \mathbb{E}_{c} \left[ \frac{|E_c \cap A_c|}{|E_c|} \right] } \)
+      </p>
+
+      <h3>4.4 Theorem 1 (The Bound)</h3>
+      <p>Same moves as before, now accounting for heterogeneous prompt sizes:</p>
+      <p class="mathjax-container boxed-equation">
+        \( \boxed{ \text{err} \ge 2 \text{err}_{\text{iiv}} - \frac{\max_c |V_c|}{\min_c |E_c|} - \delta } \)
+      </p>
+      <p><strong>Why min/max?</strong> The <strong>smallest</strong> error set \( \min_c |E_c| \) dictates the global cutoff; the <strong>largest</strong> valid set \( \max_c |V_c| \) is the worst case for the “valid-below” bound.</p>
+
+      <h3>4.5 Quick Multi-Prompt Example</h3>
+      <ul>
+        <li>Prompt 1: \( V_1 = \{\text{Paris}\}, |E_1| = 50 \).</li>
+        <li>Prompt 2: \( V_2 = \{\text{Eiffel Tower}, \text{Arc de Triomphe}\}, |E_2| = 50 \).</li>
+      </ul>
+      <p>Then \( \max |V_c| = 2, \ \min |E_c| = 50 \Rightarrow \) size term \( = 2/50 = 0.04 \).</p>
+      <p>If \( \text{err}_{\text{iiv}} = 0.08 \) and \( \delta = 0.01 \), the bound says</p>
+      <p class="mathjax-container">
+        \( \text{err} \ge 2 \cdot 0.08 - 0.04 - 0.01 = 0.11. \)
+      </p>
+      <p>No decoding trick can dodge this; you must <strong>reduce \( \hat{p}(E_c \mid c) \)</strong> (better model/knowledge) or <strong>shrink the error set</strong> (tools/retrieval/constraints).</p>
+
+      <h2>5) Conclusion — What This Actually Tells You</h2>
+      <p><strong>One-line story:</strong> If deciding “is this reply valid?” isn’t trivial, then <strong>sampling cannot be perfectly truthful</strong>. The precise lower bound is</p>
+      <p class="mathjax-container boxed-equation">
+        \( \text{err} \ge 2 \text{err}_{\text{iiv}} - \frac{\max_c |V_c|}{\min_c |E_c|} - \delta, \)
+      </p>
+      <p>with the no-prompt version replacing the size ratio by \( |V|/|E| \).</p>
+      <p><strong>What to do with it (practical playbook):</strong></p>
+      <ol>
+        <li><strong>Make the judge smarter</strong> (lower \( \text{err}_{\text{iiv}} \)). Add verifiers (consistency checks, cross-document agreement), retrieval/tool grounding, and use balanced hard negatives in training/eval.</li>
+        <li><strong>Shrink the error set</strong> (tighten \( R_c \)). Constrain outputs (function calls, schema-constrained decoding), use retrieval or filters that remove implausible options—so fewer wrong candidates survive.</li>
+        <li><strong>Stay calibrated</strong> (keep \( \delta \) small). Avoid over-sharpened decoding; use sequence-level temperature scaling or a monotone calibrator on a validity score measured on a held-out set.</li>
+        <li><strong>Fix incentives</strong> (for later parts). Binary grading rewards guessing; confidence-targeting (“answer only if \( >t \) confident; else IDK,” with penalty \( -t/(1-t) \) for wrong answers) makes abstention rational when uncertain.</li>
+      </ol>
+      <p><strong>Common pitfalls:</strong></p>
+      <ul>
+        <li>A good judge (\( \text{err}_{\text{iiv}} \approx 0 \)) does <strong>not</strong> imply a clean generator; any non-zero mass on \( E_c \) still shows up in sampling.</li>
+        <li>\( \delta \) isn’t a knob; you <strong>measure</strong> or <strong>upper-bound</strong> it.</li>
+        <li>Theorem 1 uses <strong>one global threshold</strong> → expect the \( \max |V_c| / \min |E_c| \) term.</li>
+      </ul>
+      <p><strong>Core formulas to keep handy:</strong></p>
+      <ul class="mathjax-container">
+        <li>\( \text{err}_{\text{iiv}} = \frac{1}{2} \mathbb{E}_{c} [ p(V_c \setminus A_c \mid c) ] + \frac{1}{2} \mathbb{E}_{c} \left[ \frac{|E_c \cap A_c|}{|E_c|} \right] \)</li>
+        <li>\( \text{err} \ge 2 \text{err}_{\text{iiv}} - \frac{|V|}{|E|} - \delta \quad (\text{no prompts}) \)</li>
+        <li>\( \text{err} \ge 2 \text{err}_{\text{iiv}} - \frac{\max_c |V_c|}{\min_c |E_c|} - \delta \quad (\text{Theorem 1}) \)</li>
+        <li>\( \delta = |\hat{p}(A) - p(A)|, \quad A = \{ (c, r) : \hat{p}(r \mid c) > 1 / \min_c |E_c| \} \)</li>
+      </ul>
+      <p><strong>What to write next (Part 2):</strong> cover the <strong>Singleton / Arbitrary-Facts</strong> theory (how the <strong>singleton rate</strong> sets a floor on hallucination), other error sources (capacity, shift, hardness), and evaluation incentives with concrete examples and mini-experiments. That closes the loop between these bounds and what you observe on real tasks.</p>
+    </section>
+  </main>
+  <div id="__footer"></div>
+  <script defer src="/assets/js/main.js"></script>
+</body>
+</html>
